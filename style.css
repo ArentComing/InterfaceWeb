@@ -1,0 +1,600 @@
+body {
+  user-select: none;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./assets/images/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* بوم ذرات نوری */
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.card-container {
+  perspective: 1200px;
+  position: relative;
+  z-index: 10;
+}
+
+/* کارت در نمای موبایل و صفحات کوچک */
+.liquid-glass {
+  width: 328px;
+  min-height: 480px;
+  padding: 14px 16px 16px 16px;
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.35, 0, 0.15, 1), box-shadow 0.5s ease;
+  box-sizing: border-box;
+}
+
+.liquid-glass.flipped {
+  transform: rotateY(180deg);
+  box-shadow: 0 24px 80px rgba(4, 30, 60, 0.8), 0 0 35px rgba(14, 165, 233, 0.3), inset 0 1px 0 rgba(120, 210, 255, 0.45);
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  transition: background 0.6s ease;
+}
+
+.liquid-glass.flipped::before {
+  background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.22), transparent 75%), rgba(0, 15, 35, 0.3);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.flip-trigger {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: #38bdf8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.flip-trigger:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+}
+
+.card-face {
+  position: absolute;
+  inset: 14px 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  color: #fff;
+  text-align: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* هدر وسط‌چین */
+.card-header-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 2px;
+}
+
+.card-header-bar.tg-accent {
+  color: #38bdf8;
+}
+
+.header-icon {
+  width: 13px;
+  height: 13px;
+}
+
+/* عکس و مشخصات پروفایل */
+.profile-avatar-border {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  padding: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.profile-avatar-border img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #1a1a1a;
+  pointer-events: none;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 1px 0;
+}
+
+.profile-info h2 {
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.profile-divider {
+  width: 28px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  margin: 1px 0;
+}
+
+.user-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.73rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: ui-monospace, SFMono-Regular, monospace;
+}
+
+.meta-dot {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.copy-trigger {
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.copy-trigger:hover {
+  color: #38bdf8;
+}
+
+.stats-box {
+  display: flex;
+  gap: 16px;
+  padding: 6px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  width: 100%;
+  justify-content: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.stat-label {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 1px;
+}
+
+/* ویجت ریپازیتوری پین‌شده */
+.latest-repo-box {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3px 0;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+
+.latest-repo-box:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.repo-main-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.repo-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.repo-main-info a {
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.repo-metrics {
+  display: flex;
+  gap: 7px;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: ui-monospace, SFMono-Regular, monospace;
+}
+
+/* تول‌تیپ هاور ریپو */
+.repo-peek-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  width: 250px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  padding: 9px 11px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  text-align: left;
+  z-index: 100;
+}
+
+.latest-repo-box:hover .repo-peek-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.peek-lang {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #38bdf8;
+  margin-bottom: 4px;
+}
+
+.lang-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38bdf8;
+}
+
+.peek-desc {
+  margin: 0;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* استک مهارت‌ها */
+.tech-stack-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  width: 100%;
+  margin: 2px 0;
+}
+
+.tech-badge {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  padding: 3px 7px;
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.tech-badge:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+/* تلگرام چنل ویجت */
+.tg-channel-widget {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  padding: 6px 9px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.tg-channel-widget:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-1px);
+}
+
+.tg-channel-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: #0f172a;
+}
+
+.tg-channel-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tg-channel-details {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+}
+
+.tg-channel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1.1;
+}
+
+.tg-channel-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tg-join-badge {
+  font-size: 0.58rem;
+  background: #0284c7;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 1px 6px;
+  border-radius: 9px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.tg-channel-widget:hover .tg-join-badge {
+  background: #0369a1;
+}
+
+.tg-channel-subs {
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.65);
+  display: block;
+  margin-top: 2px;
+}
+
+.tg-channel-feed {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+.tg-feed-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.tg-channel-feed p {
+  margin: 0;
+  font-size: 0.63rem;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+}
+
+.action-buttons {
+  width: 100%;
+}
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.action-btn.sup-btn {
+  background: rgba(2, 132, 199, 0.25);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.02);
+}
+
+.action-btn.sup-btn:hover {
+  background: rgba(2, 132, 199, 0.45);
+}
+
+.action-btn .icon {
+  width: 13px;
+  height: 13px;
+}
+
+.copy-toast {
+  position: fixed;
+  bottom: 24px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+.copy-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   نمای دسکتاپ: ساید بای ساید با شیشه کریستالی کاملاً صاف
+   ========================================================= */
+@media (min-width: 768px) {
+  .card-container {
+    perspective: none;
+  }
+
+  .liquid-glass {
+    width: auto;
+    min-height: auto;
+    display: flex;
+    gap: 24px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0;
+    transform: none !important;
+  }
+
+  .liquid-glass::before,
+  .liquid-glass::after,
+  .flip-trigger {
+    display: none !important;
+  }
+
+  .card-face {
+    position: relative;
+    inset: auto;
+    width: 320px;
+    min-height: 470px;
+    border-radius: 24px;
+    padding: 16px 18px 18px 18px;
+    box-sizing: border-box;
+    backface-visibility: visible;
+    transform: none !important;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .card-face.card-back {
+    box-shadow: 0 24px 80px rgba(4, 30, 60, 0.8), 0 0 35px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(120, 210, 255, 0.4);
+    background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.16), transparent 75%), rgba(0, 15, 35, 0.35);
+    border-color: rgba(56, 189, 248, 0.35);
+  }
+}
