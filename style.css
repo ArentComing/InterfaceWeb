@@ -15,7 +15,6 @@ body {
   position: relative;
 }
 
-/* بوم ذرات نوری */
 #particles-canvas {
   position: fixed;
   inset: 0;
@@ -31,7 +30,6 @@ body {
   z-index: 10;
 }
 
-/* کارت در نمای موبایل و صفحات کوچک */
 .liquid-glass {
   width: 328px;
   min-height: 480px;
@@ -117,7 +115,6 @@ body {
   transform: rotateY(180deg);
 }
 
-/* هدر وسط‌چین */
 .card-header-bar {
   width: 100%;
   display: flex;
@@ -141,7 +138,6 @@ body {
   height: 13px;
 }
 
-/* عکس و مشخصات پروفایل */
 .profile-avatar-border {
   width: 66px;
   height: 66px;
@@ -236,7 +232,6 @@ body {
   margin-top: 1px;
 }
 
-/* ویجت ریپازیتوری پین‌شده */
 .latest-repo-box {
   position: relative;
   width: 100%;
@@ -290,7 +285,6 @@ body {
   font-family: ui-monospace, SFMono-Regular, monospace;
 }
 
-/* تول‌تیپ هاور ریپو */
 .repo-peek-tooltip {
   position: absolute;
   bottom: calc(100% + 8px);
@@ -345,7 +339,6 @@ body {
   overflow: hidden;
 }
 
-/* استک مهارت‌ها */
 .tech-stack-row {
   display: flex;
   flex-wrap: wrap;
@@ -372,7 +365,6 @@ body {
   color: #fff;
 }
 
-/* تلگرام چنل ویجت */
 .tg-channel-widget {
   width: 100%;
   background: rgba(255, 255, 255, 0.08);
@@ -549,9 +541,6 @@ body {
   transform: translateY(0);
 }
 
-/* =========================================================
-   نمای دسکتاپ: ساید بای ساید با شیشه کریستالی کاملاً صاف
-   ========================================================= */
 @media (min-width: 768px) {
   .card-container {
     perspective: none;
