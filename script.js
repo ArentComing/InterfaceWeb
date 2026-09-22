@@ -2,7 +2,6 @@ const card = document.getElementById('glass-card');
 const flipBtn = document.getElementById('flip-btn');
 const toast = document.getElementById('copy-toast');
 
-// افکت صوتی هنگام فلیپ در موبایل
 function playCardFlipAudio() {
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
   const osc = ctx.createOscillator();
@@ -47,7 +46,6 @@ document.querySelectorAll('.copy-trigger').forEach(el => {
   });
 });
 
-// فچ اطلاعات گیت‌هاب و آخرین ریپو
 function fetchGitHubData() {
   const ghUser = "ArentComing";
 
@@ -85,7 +83,6 @@ function fetchGitHubData() {
     });
 }
 
-// فچ اطلاعات کانال تلگرام از ورکر کلادفلر
 function fetchTelegramChannelFeed() {
   const WORKER_ENDPOINT = "https://githubtel.slappir86.workers.dev";
 
@@ -105,7 +102,6 @@ function fetchTelegramChannelFeed() {
     });
 }
 
-// موتور سبک ذرات نورانی مشبک در پس‌زمینه
 function initParticleCanvas() {
   const canvas = document.getElementById('particles-canvas');
   if (!canvas) return;
