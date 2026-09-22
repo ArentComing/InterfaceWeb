@@ -13,7 +13,7 @@
 <!-- Preview Banner -->
 
 <p align="center">
-  <img src="./assets/images/preview.png" alt="Project Preview" width="760" style="border-radius: 14px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);" />
+  <img src="./assets/images/pre.png" alt="Project Preview" width="760" style="border-radius: 14px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);" />
 </p>
 
 <p align="center">
